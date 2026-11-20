@@ -1,0 +1,53 @@
+{
+ "ts": "2026-01-01 00:00:00",
+ "controladores": {
+  "192.0.2.21": {
+   "name": "TCC-Q2-04",
+   "model": "EY-AS525F001",
+   "fw": null,
+   "device": 21
+  },
+  "192.0.2.22": {
+   "name": "TCC-Q2-01/525.1",
+   "model": "EY-AS525F001",
+   "fw": null,
+   "device": 22
+  },
+  "192.0.2.23": {
+   "name": "TCC-Q2-01/525.2",
+   "model": "EY-AS525F001",
+   "fw": null,
+   "device": 23
+  },
+  "192.0.2.24": {
+   "name": "TCC-Q2-02/525.1",
+   "model": "EY-AS525F001",
+   "fw": null,
+   "device": 24
+  },
+  "192.0.2.25": {
+   "name": "TCC-Q2-02/525.2",
+   "model": "EY-AS525F001",
+   "fw": null,
+   "device": 25
+  },
+  "192.0.2.26": {
+   "name": "TCC-Q2-03/525.1",
+   "model": "EY-AS525F001",
+   "fw": null,
+   "device": 26
+  },
+  "192.0.2.27": {
+   "name": null,
+   "model": null,
+   "fw": null,
+   "device": null
+  },
+  "192.0.2.28": {
+   "name": "TCC-Q2-03/504",
+   "model": "EY-RC504F001",
+   "fw": null,
+   "device": 28
+  }
+ }
+}

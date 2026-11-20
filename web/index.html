@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pabellones Quirúrgicos — Hospital Demo</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='6' fill='%2312243a'/%3E%3Cpath d='M13 8h6v5h5v6h-5v5h-6v-5H8v-6h5z' fill='%23f9a825'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="/css/estilos.css" />
+</head>
+<body>
+
+<header class="barra">
+  <div class="logo-lockup">@@LOGO_SVG@@</div>
+  <div class="titulo">
+    <h1>Pabellones Quirúrgicos y Salas de Parto</h1>
+    <span class="sub">Piso 2 · Edificio A · Tableros TCC-Q2-01 · Q2-02 · Q2-03 · Q2-04 · Supervisión de solo lectura</span>
+  </div>
+  <div class="acciones-barra">
+    <button class="btn" type="button" data-doc="informe" data-sala="" title="Informe técnico general del período elegido en «Informes y descargas»">📄 Informe general</button>
+    <button class="btn btn-sec" type="button" data-doc="excel" data-sala="" title="Excel general del período elegido en «Informes y descargas»">⬇ Excel general</button>
+  </div>
+  <div class="ctrl-puntos" id="ctrl-puntos" title="Controladores BACnet"></div>
+  <div class="reloj">
+    <span id="reloj">—</span>
+    <span class="pulso" id="pulso" title="Último ciclo de lectura"></span>
+  </div>
+</header>
+
+<div id="demo" class="demo oculto">MODO DEMOSTRACIÓN · valores de ejemplo anonimizados, no son lecturas en vivo</div>
+
+<section id="banner" class="banner banner-inicio">
+  <span class="banner-icono" id="banner-icono">●</span>
+  <span class="banner-texto" id="banner-texto">Conectando con los controladores…</span>
+  <span class="banner-det" id="banner-det"></span>
+</section>
+
+<main class="contenido">
+  <section class="kpis" id="kpis"></section>
+
+  <div class="dos-col">
+    <section class="bloque">
+      <div class="bloque-cab">
+        <h2>Pabellones quirúrgicos</h2>
+        <span class="nota" id="nota-pab"></span>
+      </div>
+      <div class="salas" id="pabellones"></div>
+
+      <div class="bloque-cab segundo">
+        <h2>Salas integrales de parto</h2>
+        <span class="nota">Asignación sala–UMA según los nombres del PLC</span>
+      </div>
+      <div class="salas salas-chicas" id="partos"></div>
+    </section>
+
+    <aside class="lateral">
+      <section class="panel" id="panel-alarmas">
+        <div class="panel-cab"><h2>Alarmas y avisos</h2><span class="nota" id="alarmas-n"></span></div>
+        <ul class="alarmas" id="alarmas"><li class="vacio">—</li></ul>
+      </section>
+      <section class="panel">
+        <div class="panel-cab"><h2>Gases clínicos</h2><span class="nota">Tableros TDG · Q2-03-504</span></div>
+        <table class="matriz" id="gases"></table>
+      </section>
+      <section class="panel">
+        <div class="panel-cab"><h2>UPS</h2><span class="nota" id="ups-nota"></span></div>
+        <div class="ups" id="ups"></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="panel" id="panel-descargas">
+    <div class="panel-cab"><h2>Informes y descargas</h2><span class="nota" id="msg-descarga"></span></div>
+    <div class="periodo">
+      <span class="et">Período</span>
+      <div class="selector" id="sel-periodo">
+        <button type="button" data-periodo="24">24 h</button>
+        <button type="button" data-periodo="168" class="activo">7 días</button>
+        <button type="button" data-periodo="720">30 días</button>
+        <button type="button" data-periodo="personal">Fechas…</button>
+      </div>
+      <span id="fechas" class="fechas oculto">
+        <label>Desde <input type="date" id="f-desde"></label>
+        <label>Hasta <input type="date" id="f-hasta"></label>
+      </span>
+      <span class="nota" id="periodo-txt"></span>
+    </div>
+    <div class="descargas" id="descargas"></div>
+    <p class="nota">Informe técnico: se abre en una pestaña nueva, listo para imprimir o guardar como PDF. Excel: resumen,
+      observaciones, historial con gráfico, estadísticas, UMA, eventos, puntos BACnet y una planilla de rondas para registro manual.</p>
+  </section>
+
+  <section class="bloque">
+    <div class="bloque-cab"><h2>Unidades de manejo de aire</h2>
+      <span class="nota">Clic en una fila para ver el detalle completo</span></div>
+    <div class="tabla-envoltura"><table class="tabla" id="umas"></table></div>
+  </section>
+
+  <div class="tres-col">
+    <section class="panel">
+      <div class="panel-cab"><h2>Ambiente y CO₂</h2><span class="nota">Sondas del piso</span></div>
+      <ul class="lista" id="ambiente"></ul>
+    </section>
+    <section class="panel">
+      <div class="panel-cab"><h2>Equipos de precisión</h2><span class="nota">EP 30–32 · Q2-04-525</span></div>
+      <div id="precision"></div>
+    </section>
+    <section class="panel">
+      <div class="panel-cab"><h2>Otros equipos</h2><span class="nota">SCAR · extractor · L1/L2 · circuitos</span></div>
+      <div id="otros"></div>
+    </section>
+  </div>
+
+  <section class="bloque">
+    <div class="bloque-cab"><h2>Controladores</h2><span class="nota" id="ciclo-nota"></span></div>
+    <div class="tabla-envoltura"><table class="tabla" id="controladores"></table></div>
+  </section>
+
+  <div class="dos-col-igual">
+    <section class="panel">
+      <div class="panel-cab"><h2>Registro de eventos</h2><span class="nota">Últimos 100</span></div>
+      <ul class="eventos" id="eventos"></ul>
+    </section>
+    <section class="panel">
+      <div class="panel-cab"><h2>Explorador de puntos</h2><span class="nota" id="pts-n"></span></div>
+      <input id="buscar" class="buscar" type="search" placeholder="Buscar señal, UMA, IP… (ej. B1.3 TEMP, TDG, UPS)" autocomplete="off" />
+      <div class="tabla-envoltura alto"><table class="tabla compacta" id="puntos"></table></div>
+    </section>
+  </div>
+
+  <p class="pie">
+    Dashboard Pabellones v@@VERSION@@ · Lectura BACnet cada 30 s · Los rangos son configurados
+    (config/pabellones.json) y no constituyen una certificación normativa. Las lecturas históricas no confirman el estado actual.
+  </p>
+</main>
+
+<div class="modal oculto" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-caja">
+    <button class="cerrar" id="modal-cerrar" aria-label="Cerrar">×</button>
+    <div id="modal-cuerpo"></div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

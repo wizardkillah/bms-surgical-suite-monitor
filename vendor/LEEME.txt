@@ -1,0 +1,7 @@
+Dependencias empaquetadas (sin pip ni internet en el PC del hospital)
+
+openpyxl 3.1.5    - licencia MIT - generación del Excel
+et_xmlfile 2.0.0  - licencia MIT - requerido por openpyxl
+
+Copiadas tal cual desde PyPI (puro Python). clima/__init__.py agrega esta carpeta a sys.path.
+Requieren Python 3.8 o superior.

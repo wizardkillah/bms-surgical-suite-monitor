@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+datos/*
+!datos/.gitkeep
+logs/*
+!logs/.gitkeep
+dist/
+*.zip
